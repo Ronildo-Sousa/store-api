@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Actions\Auth\RegisterUser;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +17,7 @@ class RegisterCustomerController extends Controller
 
         return response()
             ->json([
-                'customer' => $customer,
+                'customer' => new UserResource($customer),
                 'token' => $customer->handleToken()
             ], Response::HTTP_CREATED);
     }
