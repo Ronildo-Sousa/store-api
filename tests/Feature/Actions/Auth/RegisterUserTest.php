@@ -13,7 +13,7 @@ it('should be able to register a customer', function () {
         'password' => 'password'
     ]))
         ->assertCreated()
-        ->assertJsonFragment(['token']);
+        ->assertJsonStructure(['customer', 'token']);
 
     assertDatabaseHas('users', ['email' => 'customer@email.com']);
 });
