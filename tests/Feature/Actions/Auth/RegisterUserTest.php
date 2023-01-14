@@ -27,12 +27,15 @@ test('admin should be able to register a new admin user', function () {
             'email' => 'newadmin@email.com',
             'password' => 'password'
         ]))
-        ->assertCreated();
+        ->assertCreated()
+        ->assertJsonStructure(['user', 'token']);;
 
     assertDatabaseHas('users', ['email' => 'newadmin@email.com']);
 });
 
 test('all fileds should be required and valid', function () {
+    $admin = Admin::factory()->create();
+
     postJson(route('api.auth.register', [
         'name' => '',
         'email' => '',
@@ -45,11 +48,12 @@ test('all fileds should be required and valid', function () {
             'password' => 'required',
         ]);
 
-    postJson(route('api.auth.register', [
-        'name' => 'test name',
-        'email' => 'some-email',
-        'password' => 'password'
-    ]))
+    actingAs($admin)
+        ->postJson(route('api.auth.register-admin', [
+            'name' => 'test name',
+            'email' => 'some-email',
+            'password' => 'password'
+        ]))
         ->assertUnprocessable()
         ->assertJsonValidationErrors(['email' => 'email']);
 });

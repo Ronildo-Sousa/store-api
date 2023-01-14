@@ -3,6 +3,7 @@
 namespace App\Actions\Auth;
 
 use App\Actions\Actionable;
+use App\Models\Admin;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 class RegisterUser extends Actionable
@@ -12,7 +13,11 @@ class RegisterUser extends Actionable
         $user->name = $requestData['name'];
         $user->email = $requestData['email'];
         $user->password = $requestData['password'];
-        $user->type = $requestData['type'] ?? null;
+
+        if (class_basename($user) == 'Admin') {
+            $user->type = Admin::class;
+        }
+
         $user->save();
 
         return $user;

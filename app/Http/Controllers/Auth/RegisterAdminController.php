@@ -6,19 +6,20 @@ use App\Actions\Auth\RegisterUser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
-use App\Models\Customer;
+use App\Models\Admin;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class RegisterCustomerController extends Controller
+class RegisterAdminController extends Controller
 {
     public function __invoke(UserRequest $request)
     {
-        $customer = RegisterUser::run(new Customer, $request->all());
+        $admin = RegisterUser::run(new Admin, $request->all());
 
         return response()
             ->json([
-                'customer' => new UserResource($customer),
-                'token' => $customer->handleToken()
+                'user' => UserResource::make($admin),
+                'token' => $admin->handleToken()
             ], Response::HTTP_CREATED);
     }
 }
