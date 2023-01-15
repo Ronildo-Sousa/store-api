@@ -12,7 +12,7 @@ class RegisterUser extends Actionable
     {
         $user->name = $requestData['name'];
         $user->email = $requestData['email'];
-        $user->password = $requestData['password'];
+        $user->password = bcrypt($requestData['password']);
 
         if (class_basename($user) == 'Admin') {
             $user->type = Admin::class;

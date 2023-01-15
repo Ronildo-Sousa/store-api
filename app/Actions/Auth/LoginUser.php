@@ -6,6 +6,7 @@ use App\Actions\Actionable;
 use App\Http\Resources\UserResource;
 use App\Models\Customer;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class LoginUser extends Actionable
@@ -13,7 +14,7 @@ class LoginUser extends Actionable
     /**
      * @param Customer|Admin $model
      */
-    public function handle(?array $userData = [], ?Authenticatable $model = new Customer)
+    public function handle(?array $userData = [], ?Authenticatable $model = new Customer): ?Collection
     {
         if (empty($userData)) {
             return null;

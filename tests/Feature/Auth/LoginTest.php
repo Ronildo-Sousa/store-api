@@ -17,6 +17,13 @@ it('should not be able to login with wrong credentials', function () {
     ]))
         ->assertUnauthorized()
         ->assertJsonStructure(['message']);
+
+    postJson(route('api.auth.login-admin', [
+        'email' => 'some@email.com',
+        'password' => 'password'
+    ]))
+        ->assertUnauthorized()
+        ->assertJsonStructure(['message']);
 });
 
 it('should be able to login as a customer', function () {
@@ -46,6 +53,20 @@ test('email should be required and valid', function () {
         ->assertJsonValidationErrors(['email' => 'required']);
 
     postJson(route('api.auth.login', [
+        'email' => '',
+        'password' => 'password'
+    ]))
+        ->assertUnprocessable()
+        ->assertJsonValidationErrors(['email' => 'required']);
+
+    postJson(route('api.auth.login-admin', [
+        'email' => 'invalid-email',
+        'password' => 'password'
+    ]))
+        ->assertUnprocessable()
+        ->assertJsonValidationErrors(['email' => 'email']);
+
+    postJson(route('api.auth.login-admin', [
         'email' => 'invalid-email',
         'password' => 'password'
     ]))
@@ -55,6 +76,13 @@ test('email should be required and valid', function () {
 
 test('password should be required', function () {
     postJson(route('api.auth.login', [
+        'email' => 'email@email.com',
+        'password' => ''
+    ]))
+        ->assertUnprocessable()
+        ->assertJsonValidationErrors(['password' => 'required']);
+
+    postJson(route('api.auth.login-admin', [
         'email' => 'email@email.com',
         'password' => ''
     ]))
