@@ -28,7 +28,8 @@ test('admin should be able to register a new admin user', function () {
             'password' => 'password'
         ]))
         ->assertCreated()
-        ->assertJsonStructure(['user', 'token']);;
+        ->assertJsonStructure(['user', 'token']);
+        ;
 
     assertDatabaseHas('users', ['email' => 'newadmin@email.com']);
 });

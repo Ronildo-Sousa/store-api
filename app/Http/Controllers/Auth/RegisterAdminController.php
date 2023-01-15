@@ -7,14 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Admin;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class RegisterAdminController extends Controller
 {
     public function __invoke(UserRequest $request)
     {
-        $admin = RegisterUser::run(new Admin, $request->all());
+        $admin = RegisterUser::run(new Admin(), $request->all());
 
         return response()
             ->json([

@@ -13,7 +13,7 @@ class RegisterCustomerController extends Controller
 {
     public function __invoke(UserRequest $request)
     {
-        $customer = RegisterUser::run(new Customer, $request->all());
+        $customer = RegisterUser::run(new Customer(), $request->all());
 
         return response()
             ->json([
