@@ -12,7 +12,7 @@ class RegisterUser extends Actionable
     /**
      * @param Customer|Admin $user
      */
-    public function handle(?array $requestData = null, ?Authenticatable $user = new Customer): Authenticatable
+    public function handle(?array $requestData = null, ?Authenticatable $user = null): Authenticatable
     {
         $user->name = $requestData['name'];
         $user->email = $requestData['email'];
