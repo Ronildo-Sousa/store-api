@@ -4,11 +4,15 @@ namespace App\Actions\Auth;
 
 use App\Actions\Actionable;
 use App\Models\Admin;
+use App\Models\Customer;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 class RegisterUser extends Actionable
 {
-    public function handle(?Authenticatable $user = null, ?array $requestData = null): Authenticatable
+    /**
+     * @param Customer|Admin $user
+     */
+    public function handle(?array $requestData = null, ?Authenticatable $user = new Customer): Authenticatable
     {
         $user->name = $requestData['name'];
         $user->email = $requestData['email'];

@@ -13,7 +13,7 @@ class RegisterAdminController extends Controller
 {
     public function __invoke(UserRequest $request)
     {
-        $admin = RegisterUser::run(new Admin(), $request->all());
+        $admin = RegisterUser::run($request->validated(), new Admin);
 
         return response()
             ->json([
