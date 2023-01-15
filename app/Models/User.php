@@ -35,10 +35,9 @@ class User extends Authenticatable
 
     public function scopeHandleToken(): string
     {
-        $tokens = $this->tokens;
-        if ($tokens->count() < 1) {
-            return $this->createToken($this->email)->plainTextToken;
+        if ($this->tokens->count() > 0) {
+            $this->tokens()->delete();
         }
-        return $tokens;
+        return $this->createToken($this->email)->plainTextToken;
     }
 }
