@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginCustomerController;
 use App\Http\Controllers\Auth\RegisterAdminController;
 use App\Http\Controllers\Auth\RegisterCustomerController;
 use Illuminate\Support\Facades\Route;
@@ -10,5 +11,6 @@ Route::name('api.')->group(function () {
         Route::name('register-admin')
             ->post('/register/admin', RegisterAdminController::class)
             ->middleware('auth:sanctum');
+        Route::post('/login', LoginCustomerController::class)->name('login');
     });
 });

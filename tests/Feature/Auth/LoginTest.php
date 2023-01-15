@@ -10,6 +10,15 @@ beforeEach(function () {
     $this->admin = Admin::factory()->create();
 });
 
+it('should not be able to login with wrong credentials', function () {
+    postJson(route('api.auth.login', [
+        'email' => 'some@email.com',
+        'password' => 'password'
+    ]))
+        ->assertUnauthorized()
+        ->assertJsonStructure(['message']);
+});
+
 it('should be able to login as a customer', function () {
     postJson(route('api.auth.login', [
         'email' => $this->customer->email,
