@@ -14,7 +14,7 @@ class LoginUser extends Actionable
     /**
      * @param Customer|Admin $model
      */
-    public function handle(?array $userData = [], ?Authenticatable $model = new Customer): ?Collection
+    public function handle(?array $userData = null, ?Authenticatable $model = new Customer): ?Collection
     {
         if (empty($userData)) {
             return null;
