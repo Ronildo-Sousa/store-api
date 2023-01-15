@@ -6,14 +6,13 @@ use App\Actions\Auth\RegisterUser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
-use App\Models\Customer;
 use Symfony\Component\HttpFoundation\Response;
 
 class RegisterCustomerController extends Controller
 {
     public function __invoke(UserRequest $request)
     {
-        $customer = RegisterUser::run(new Customer(), $request->all());
+        $customer = RegisterUser::run($request->validated());
 
         return response()
             ->json([
