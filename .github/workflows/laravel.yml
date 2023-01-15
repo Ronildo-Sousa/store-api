@@ -34,7 +34,7 @@ jobs:
       run: chmod -R 777 storage bootstrap/cache
 
     - name: Run Laravel Pint
-      run: ./vendor/bin/pint --test
+      run: ./vendor/bin/pint -v
 
     - name: Create Database
       run: |
